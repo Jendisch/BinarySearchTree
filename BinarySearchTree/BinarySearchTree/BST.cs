@@ -24,60 +24,97 @@ namespace BinarySearchTree
         {
             rootNode = new Node(value);
         }
-        public void Add(int input)
+        public void Insert(int input)
         {
             Node newNode = new Node(input);
-            if (newNode.Number >= rootNode.Number && rootNode.RightSubTree == null)
+            if (rootNode == null)
             {
-                rootNode.RightSubTree = newNode;
-                newNode.ParentNode = rootNode;
+                AddRoot(input);
+            }
+            else if (rootNode.RightSubTree == null)
+            {
+                if (newNode.Number >= rootNode.Number)
+                {
+                    rootNode.RightSubTree = newNode;
+                    newNode.ParentNode = rootNode;
+                }
             }
             else if (newNode.Number >= rootNode.Number)
+            {
                 Add(rootNode.RightSubTree, newNode);
-            else if (newNode.Number < rootNode.Number && rootNode.LeftSubTree == null)
-            {
-                rootNode.LeftSubTree = newNode;
-                newNode.ParentNode = rootNode;
             }
-            else
-                Add(rootNode.LeftSubTree, newNode);
-        }
-        private void Add(Node currentNode, Node newNode)
-        {
-            if (newNode.Number >= currentNode.Number && currentNode.RightSubTree == null)
+            else if (rootNode.LeftSubTree == null)
             {
-                currentNode.RightSubTree = newNode;
-                newNode.ParentNode = currentNode;
-            }
-            else if (newNode.Number >= currentNode.Number)
-                Add(currentNode.RightSubTree, newNode);
-            else if (newNode.Number < currentNode.Number && currentNode.LeftSubTree == null)
-            {
-                currentNode.LeftSubTree = newNode;
-                newNode.ParentNode = currentNode;
-            }
-            else
-                Add(currentNode.LeftSubTree, newNode);
-        }
-        public string Find(int data)
-        {
-            Node currentNode = rootNode;
-            try
-            {
-                while (data != currentNode.Number)
+                if (newNode.Number < rootNode.Number)
                 {
-                    if (data > currentNode.Number)
-                        currentNode = currentNode.RightSubTree;
-                    else
-                        currentNode = currentNode.LeftSubTree;
+                    rootNode.LeftSubTree = newNode;
+                    newNode.ParentNode = rootNode;
                 }
-                return "Found it!";
             }
-            catch
+            else
             {
-                return "Unable to find it";
+                Add(rootNode.LeftSubTree, newNode);
             }
         }
 
+        private void Add(Node workingNode, Node newNode)
+        {
+            if (newNode.Number >= workingNode.Number && workingNode.RightSubTree == null)
+            {
+                workingNode.RightSubTree = newNode;
+                newNode.ParentNode = workingNode;
+            }
+            else if (newNode.Number >= workingNode.Number)
+                Add(workingNode.RightSubTree, newNode);
+            else if (newNode.Number < workingNode.Number && workingNode.LeftSubTree == null)
+            {
+                workingNode.LeftSubTree = newNode;
+                newNode.ParentNode = workingNode;
+            }
+            else
+                Add(workingNode.LeftSubTree, newNode);
+        }
+
+        public void Search(int value, Node currentNode = null)
+        {
+            if (currentNode == null)
+            {
+                currentNode = rootNode;
+                Search(value, currentNode);
+            }
+            else if (value > currentNode.Number)
+            {
+                if (currentNode.RightSubTree == null)
+                {
+                    Console.WriteLine("Your value cannot be found in the binary search tree");
+                    return;
+                }
+                currentNode = currentNode.RightSubTree;
+                Console.WriteLine("Take a right down the tree.");
+                Search(value, currentNode);
+            }
+            else if (value < currentNode.Number)
+            {
+                if (currentNode.LeftSubTree == null)
+                {
+                    Console.WriteLine("Your value cannot be found in the binary search tree");
+                    return;
+                }
+                currentNode = currentNode.LeftSubTree;
+                Console.WriteLine("Take a left down the tree.");
+                Search(value, currentNode);
+            }
+            else if (value == currentNode.Number)
+            {
+                currentNode.Number = value;
+                Console.WriteLine("Your value was found!");
+            }
+            else
+            {
+                Console.WriteLine("Your value cannot be found in the binary search tree");
+            }
+        }
     }
 }
+
+

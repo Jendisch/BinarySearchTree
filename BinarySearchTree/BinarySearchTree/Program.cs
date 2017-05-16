@@ -10,62 +10,34 @@ namespace BinarySearchTree
     {
         static void Main(string[] args)
         {
+
+            BST theTree = new BinarySearchTree.BST();
+
+            //Add Root Number
+            theTree.Insert(30);
+            
+            //Add Nodes
+            theTree.Insert(60);
+            theTree.Insert(10);
+            theTree.Insert(29);
+            theTree.Insert(47);
+            theTree.Insert(44);
+            theTree.Insert(18);
+            theTree.Insert(55);
+            theTree.Insert(50);
+            theTree.Insert(1);
+            theTree.Insert(7);
+            theTree.Insert(33);
+            theTree.Insert(4);
+            theTree.Insert(24);
+            theTree.Insert(34);
+            theTree.Insert(15);
+            theTree.Insert(12);
+
+            //Search For Number
+            theTree.Search(12);
+            Console.ReadKey();
         }
     }
 }
 
-
-
-
-//public void Add(Node<T> node, T value)
-//{
-//    if (root == null)
-//    {
-//        root = new Node<T>(value);
-//        count++;
-//    }
-//    else if (value.CompareTo(node.NodeValue) == 0)
-//    {
-//        throw new Exception("Unable to add because this value already exists in the tree.");
-//    }
-//    else if (value.CompareTo(node.NodeValue) < 0)
-//    {
-//        if (node.LeftChild == null)
-//        {
-//            node.LeftChild = new Node<T>(value);
-//            node.LeftChild.Parent = node;
-//            count++;
-//        }
-//        else
-//        {
-//            Add(node.LeftChild, value);
-//        }
-//    }
-//    else
-//    {
-//        if (node.RightChild == null)
-//        {
-//            node.RightChild = new Node<T>(value);
-//            node.RightChild.Parent = node;
-//            count++;
-//        }
-//        else
-//        {
-//            Add(node.RightChild, value);
-//        }
-//    }
-//}
-
-//public bool Search(T value)
-//{
-//    Node<T> current = root;
-//    while (current != null)
-//    {
-//        if (current.NodeValue.Equals(value))
-//        {
-//            return true;
-//        }
-//        current = value.CompareTo(current.NodeValue) < 0 ? current.LeftChild : current.RightChild;
-//    }
-//    return false;
-//}
